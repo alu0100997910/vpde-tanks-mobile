@@ -18,8 +18,7 @@ public class TankShooting : MonoBehaviour
     private string m_FireButton;         
     private float m_CurrentLaunchForce;  
     private float m_ChargeSpeed;         
-    private bool m_Fired;                
-
+    private bool m_Fired;
 
     private void OnEnable()
     {
@@ -28,8 +27,8 @@ public class TankShooting : MonoBehaviour
     }
 
 
-    private void Start()
-    {
+    private void Start() {
+        AndroidJNIHelper.debug = true;
         m_FireButton = "Fire" + m_PlayerNumber;
 
         m_ChargeSpeed = (m_MaxLaunchForce - m_MinLaunchForce) / m_MaxChargeTime;
@@ -80,5 +79,7 @@ public class TankShooting : MonoBehaviour
         m_ShootingAudio.Play();
         
         m_CurrentLaunchForce = m_MinLaunchForce;
+        
+        VibrationManager.Vibrate(100);
     }
 }

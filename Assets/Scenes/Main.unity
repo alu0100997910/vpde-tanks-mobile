@@ -622,7 +622,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_NumRoundsToWin: 5
-  m_StartDelay: 3
+  m_StartDelay: 0
   m_EndDelay: 3
   m_CameraControl: {fileID: 1797811279}
   m_MessageText: {fileID: 52175100}
