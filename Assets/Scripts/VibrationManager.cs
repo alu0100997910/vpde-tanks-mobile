@@ -13,9 +13,12 @@ public class VibrationManager : MonoBehaviour
 
     private void OnEnable() {
         using(unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
-        using(currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
-        using(vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator"))
-        using (vibrationEffectClass = new AndroidJavaClass("android.os.VibrationEffect"));
+        using (currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
+            if (currentActivity != null) {
+                vibrator = currentActivity.Call<AndroidJavaObject>("getSystemService", "vibrator");
+                vibrationEffectClass = new AndroidJavaClass("android.os.VibrationEffect");
+            }
+        }
     }
 
     public static void Vibrate(long milliseconds) {
