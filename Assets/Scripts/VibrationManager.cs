@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VibrationManager : MonoBehaviour
+static class VibrationManager
 {
     private static AndroidJavaClass unityPlayer;
     private static AndroidJavaObject vibrator;
@@ -11,7 +11,7 @@ public class VibrationManager : MonoBehaviour
     private static AndroidJavaClass vibrationEffectClass;
     private static int defaultAmplitude = 255;
 
-    private void OnEnable() {
+    private static void Init() {
         using(unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
         using (currentActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity")) {
             if (currentActivity != null) {
@@ -22,9 +22,11 @@ public class VibrationManager : MonoBehaviour
     }
 
     public static void Vibrate(long milliseconds) {
+        if (vibrator == null || vibrationEffectClass == null) Init();
         using (AndroidJavaObject vibrationEffect =
             vibrationEffectClass.CallStatic<AndroidJavaObject>("createOneShot", milliseconds, defaultAmplitude)) {
             vibrator.Call("vibrate", vibrationEffect);
         }
+
     }
 }
