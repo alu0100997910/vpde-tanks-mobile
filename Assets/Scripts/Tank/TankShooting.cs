@@ -80,6 +80,6 @@ public class TankShooting : MonoBehaviour
         
         m_CurrentLaunchForce = m_MinLaunchForce;
         
-        VibrationManager.Vibrate(100);
+        VibrationManager.Vibrate();
     }
 }
